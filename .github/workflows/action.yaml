@@ -1,6 +1,5 @@
-name: Bild and deploy workflow
+name: Build and deploy workflow
 on: [push]
-
 jobs:
   build_and_push:
     runs-on: ubuntu-latest
@@ -23,6 +22,8 @@ jobs:
       POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
       POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
       POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+      VK_OAUTH2_KEY: ${{ secrets.VK_OAUTH2_KEY }}
+      VK_OAUTH2_SECRET: ${{ secrets.VK_OAUTH2_SECRET }}
     steps:
       - name: clone code
         uses: actions/checkout@v2
@@ -50,4 +51,5 @@ jobs:
           password: ${{ secrets.SERVER_PASSWORD }}
           script: |
             cd todolist
+            echo ${{ secrets.SERVER_PASSWORD }} | sudo -S docker-compose down
             echo ${{ secrets.SERVER_PASSWORD }} | sudo -S docker-compose up -d
