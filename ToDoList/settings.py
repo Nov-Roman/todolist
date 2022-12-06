@@ -139,8 +139,6 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-AUTH_USER_MODEL = 'core.User'
-
 
 SOCIAL_AUTH_JSONFIELD_ENABLED = True
 SOCIAL_AUTH_JSONFIELD_CUSTOM = 'django.db.models.JSONField'
