@@ -7,7 +7,6 @@ from rest_framework.generics import (
 from rest_framework import permissions, filters
 from goals.filters import GoalDateFilter
 
-
 from goals.models import Goal, GoalCategory, Comment
 from goals.serializers import (
     CategoryCreateSerializer,
@@ -101,23 +100,26 @@ class CommentCreateView(CreateAPIView):
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = CommentCreateSerializer
 
-    def perform_create(self, serializer: CommentCreateSerializer):
-        serializer.save(goal_id=self.request.data["goal"])
-
 
 class CommentListView(ListAPIView):
     model = Comment
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = CommentSerializer
+    pagination_class = LimitOffsetPagination
     filter_backends = [filters.OrderingFilter, DjangoFilterBackend]
     filterset_fields = ["goal"]
     ordering = ["-id"]
 
     def get_queryset(self):
-        return Goal.objects.filter(user=self.request.user)
+        return Comment.objects.filter(
+            user=self.request.user
+        )
 
 
 class CommentView(RetrieveUpdateDestroyAPIView):
     model = Comment
     serializer_class = CommentSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return Comment.objects.filter(user=self.request.user)
