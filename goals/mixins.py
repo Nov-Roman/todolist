@@ -3,14 +3,17 @@ from django.db import models
 from django.utils import timezone
 
 
-class ValidationMixin:
-    def global_validate(self, value):
+class ValidationIsDeleteMixin:
+    def validate_delete(self, value):
         if value.is_deleted:
             raise serializers.ValidationError("Not allowed in deleted")
+        return value
 
+
+class ValidationCheckUserMixin:
+    def validate_user(self, value):
         if value.user != self.context["request"].user:
             raise serializers.ValidationError("You not owner")
-
         return value
 
 
