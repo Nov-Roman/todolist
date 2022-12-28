@@ -2,7 +2,7 @@ from django.db import transaction
 from rest_framework import serializers
 from core.models import User
 from core.serializers import ProfileSerializer
-from goals.mixins import ValidationIsDeleteMixin
+from goals.mixins import ValidationCheckUserMixin, ValidationIsDeleteMixin
 from goals.models import Board, BoardParticipant, Comment, GoalCategory, Goal
 
 
