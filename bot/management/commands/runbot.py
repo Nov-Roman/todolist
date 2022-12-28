@@ -55,7 +55,7 @@ class Command(BaseCommand):
         if not categories:
             self.tg_client.send_message(
                 chat_id=msg.chat.id,
-                text='У тебя нет ни одной категории. Можешь создать первую в своем аккаунте на сайте mytodolist.tk'
+                text='У тебя нет ни одной категории. Можешь создать первую в своем аккаунте на сайте rnovoselov.ml'
             )
 
         categories_str = '\n'.join(['- ' + category.title for category in categories])
